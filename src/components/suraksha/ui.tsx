@@ -64,9 +64,9 @@ export function AppShell({
   children,
 }: {
   title: string;
-  subtitle?: string;
-  eyebrow?: string;
-  actions?: ReactNode;
+  subtitle?: string | undefined;
+  eyebrow?: string | undefined;
+  actions?: ReactNode | undefined;
   children: ReactNode;
 }) {
   const [open, setOpen] = useState(false);
@@ -212,9 +212,9 @@ export function StatCard({
 }: {
   label: string;
   value: string | number;
-  hint?: string;
+  hint?: string | undefined;
   tone?: "navy" | "emergency" | "warn" | "safe" | "info";
-  icon?: ReactNode;
+  icon?: ReactNode | undefined;
 }) {
   const tones = {
     navy: "text-navy",

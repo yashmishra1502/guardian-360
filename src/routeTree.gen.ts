@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthorityRouteImport } from './routes/authority'
 import { Route as CitizenRouteImport } from './routes/citizen'
+import { Route as ResponderRouteImport } from './routes/responder'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,35 +29,44 @@ const CitizenRoute = CitizenRouteImport.update({
   path: '/citizen',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResponderRoute = ResponderRouteImport.update({
+  id: '/responder',
+  path: '/responder',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/authority': typeof AuthorityRoute
   '/citizen': typeof CitizenRoute
+  '/responder': typeof ResponderRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/authority': typeof AuthorityRoute
   '/citizen': typeof CitizenRoute
+  '/responder': typeof ResponderRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/authority': typeof AuthorityRoute
   '/citizen': typeof CitizenRoute
+  '/responder': typeof ResponderRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/authority' | '/citizen'
+  fullPaths: '/' | '/authority' | '/citizen' | '/responder'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/authority' | '/citizen'
-  id: '__root__' | '/' | '/authority' | '/citizen'
+  to: '/' | '/authority' | '/citizen' | '/responder'
+  id: '__root__' | '/' | '/authority' | '/citizen' | '/responder'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthorityRoute: typeof AuthorityRoute
   CitizenRoute: typeof CitizenRoute
+  ResponderRoute: typeof ResponderRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +92,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CitizenRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/responder': {
+      id: '/responder'
+      path: '/responder'
+      fullPath: '/responder'
+      preLoaderRoute: typeof ResponderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthorityRoute: AuthorityRoute,
   CitizenRoute: CitizenRoute,
+  ResponderRoute: ResponderRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
