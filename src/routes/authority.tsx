@@ -40,7 +40,7 @@ export const Route = createFileRoute("/authority")({
       },
     ],
   }),
-  component: AuthorityDashboard;
+  component: AuthorityDashboard,
 });
 
 function AuthorityDashboard() {
