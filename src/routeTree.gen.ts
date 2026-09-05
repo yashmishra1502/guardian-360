@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthorityRouteImport } from './routes/authority'
 import { Route as CitizenRouteImport } from './routes/citizen'
+import { Route as MapRouteImport } from './routes/map'
 import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as ResponderRouteImport } from './routes/responder'
 
@@ -30,6 +31,11 @@ const CitizenRoute = CitizenRouteImport.update({
   path: '/citizen',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MapRoute = MapRouteImport.update({
+  id: '/map',
+  path: '/map',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResourcesRoute = ResourcesRouteImport.update({
   id: '/resources',
   path: '/resources',
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/authority': typeof AuthorityRoute
   '/citizen': typeof CitizenRoute
+  '/map': typeof MapRoute
   '/resources': typeof ResourcesRoute
   '/responder': typeof ResponderRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/authority': typeof AuthorityRoute
   '/citizen': typeof CitizenRoute
+  '/map': typeof MapRoute
   '/resources': typeof ResourcesRoute
   '/responder': typeof ResponderRoute
 }
@@ -60,21 +68,31 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/authority': typeof AuthorityRoute
   '/citizen': typeof CitizenRoute
+  '/map': typeof MapRoute
   '/resources': typeof ResourcesRoute
   '/responder': typeof ResponderRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/authority' | '/citizen' | '/resources' | '/responder'
+  fullPaths:
+    '/' | '/authority' | '/citizen' | '/map' | '/resources' | '/responder'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/authority' | '/citizen' | '/resources' | '/responder'
-  id: '__root__' | '/' | '/authority' | '/citizen' | '/resources' | '/responder'
+  to: '/' | '/authority' | '/citizen' | '/map' | '/resources' | '/responder'
+  id:
+    | '__root__'
+    | '/'
+    | '/authority'
+    | '/citizen'
+    | '/map'
+    | '/resources'
+    | '/responder'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthorityRoute: typeof AuthorityRoute
   CitizenRoute: typeof CitizenRoute
+  MapRoute: typeof MapRoute
   ResourcesRoute: typeof ResourcesRoute
   ResponderRoute: typeof ResponderRoute
 }
@@ -102,6 +120,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CitizenRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/map': {
+      id: '/map'
+      path: '/map'
+      fullPath: '/map'
+      preLoaderRoute: typeof MapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/resources': {
       id: '/resources'
       path: '/resources'
@@ -123,6 +148,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthorityRoute: AuthorityRoute,
   CitizenRoute: CitizenRoute,
+  MapRoute: MapRoute,
   ResourcesRoute: ResourcesRoute,
   ResponderRoute: ResponderRoute,
 }
