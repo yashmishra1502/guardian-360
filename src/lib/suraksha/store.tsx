@@ -83,7 +83,7 @@ export interface ReportInput {
   location: string;
   description: string;
   affectedPeople: number;
-  imageName?: string;
+  imageName?: string | undefined;
 }
 
 export interface AssignTaskInput {
