@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { AlertTriangle, ArrowRight, Home, Map, Radio, ShieldCheck, Siren, Users } from "lucide-react";
 
 import { Brand, DemoNote, SeverityBadge, StatusBadge } from "@/components/suraksha/ui";
-import { IsometricCityIllustration } from "@/components/suraksha/IsometricCityIllustration";
 import { useSuraksha } from "@/lib/suraksha/store";
 
 export const Route = createFileRoute("/")({
@@ -115,18 +114,22 @@ function Landing() {
               </dl>
             </div>
 
-            <div className="rounded-2xl bg-card p-4 shadow-raised sm:p-5">
-              <div className="flex items-center justify-between">
-                <p className="text-sm font-semibold text-card-foreground">3D command center overview</p>
-                <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emergency">
-                  <Radio className="size-3.5 animate-pulse" /> live feed
-                </span>
-              </div>
-              <div className="mt-3 aspect-[680/480] w-full overflow-hidden rounded-lg border bg-background">
-                <IsometricCityIllustration />
-              </div>
-              <div className="mt-3">
-                <DemoNote>Prototype data — no real dispatch, call or SMS is triggered.</DemoNote>
+            <div className="overflow-hidden rounded-2xl shadow-raised">
+              <img
+                src="/banner.png"
+                alt="Rescue team conducting search operations after an earthquake"
+                className="h-72 w-full object-cover sm:h-96"
+              />
+              <div className="bg-card p-4 sm:p-5">
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-semibold text-card-foreground">Real teams. Real coordination.</p>
+                  <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emergency">
+                    <Radio className="size-3.5 animate-pulse" /> live feed
+                  </span>
+                </div>
+                <div className="mt-3">
+                  <DemoNote>Prototype data — no real dispatch, call or SMS is triggered.</DemoNote>
+                </div>
               </div>
             </div>
           </div>
