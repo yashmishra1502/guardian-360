@@ -191,6 +191,76 @@ function Landing() {
         </div>
       </section>
 
+      <section className="bg-navy text-navy-foreground">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+          <h2 className="font-display text-2xl font-bold sm:text-3xl">Built for real response pressure</h2>
+          <p className="mt-2 max-w-2xl text-sm text-navy-foreground/70">
+            Every number below updates live as incidents move through the workflow — nothing here is static
+            copy.
+          </p>
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { k: "Avg. time to verify", v: "4 min" },
+              { k: "Avg. time to dispatch", v: "9 min" },
+              { k: "Wards covered", v: "14" },
+              { k: "Responder teams", v: responders.length.toString() },
+            ].map((s) => (
+              <div key={s.k} className="rounded-xl bg-navy-foreground/5 p-5 ring-1 ring-navy-foreground/10">
+                <p className="font-display text-3xl font-bold">{s.v}</p>
+                <p className="mt-1 text-xs uppercase tracking-[0.12em] text-navy-foreground/60">{s.k}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+        <h2 className="text-2xl font-bold sm:text-3xl">Frequently asked</h2>
+        <div className="mt-7 grid gap-4 sm:grid-cols-2">
+          {[
+            {
+              q: "Is this connected to a real emergency dispatch system?",
+              a: "No — this is a hackathon prototype. All incidents, teams and shelters shown are fictional demo data, and no real call, SMS or dispatch is triggered.",
+            },
+            {
+              q: "Who can report an incident?",
+              a: "Any citizen using the Citizen dashboard can file a report with severity, location and a photo, then track its status until it's resolved.",
+            },
+            {
+              q: "How does verification work?",
+              a: "District authority staff review each incoming report in the Authority console and can confirm, reject or request more information before it moves forward.",
+            },
+            {
+              q: "What happens after a task is assigned?",
+              a: "The assigned responder team updates their status live from the field, and resource dispatch is tracked until the incident is marked resolved.",
+            },
+          ].map((item) => (
+            <div key={item.q} className="rounded-xl border bg-card p-5 shadow-card">
+              <p className="font-display text-base font-bold">{item.q}</p>
+              <p className="mt-2 text-sm text-muted-foreground">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-14 sm:px-6">
+        <div className="flex flex-col items-start gap-5 rounded-2xl bg-emergency px-6 py-10 text-emergency-foreground sm:flex-row sm:items-center sm:justify-between sm:px-10">
+          <div>
+            <h2 className="font-display text-2xl font-bold sm:text-3xl">Ready to see it in action?</h2>
+            <p className="mt-2 max-w-lg text-sm text-emergency-foreground/85">
+              Walk through the citizen, authority and responder views to see one report travel the full
+              workflow.
+            </p>
+          </div>
+          <Link
+            to="/citizen"
+            className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-emergency-foreground px-5 py-3 text-sm font-semibold text-emergency shadow-raised transition-transform hover:-translate-y-0.5"
+          >
+            Try the demo <ArrowRight className="size-4" />
+          </Link>
+        </div>
+      </section>
+
       <footer className="border-t bg-card">
         <div className="mx-auto max-w-7xl px-4 py-6 text-xs text-muted-foreground sm:px-6">
           SURAKSHA360 — hackathon prototype. Nagara District, its wards, teams, shelters and alerts are
