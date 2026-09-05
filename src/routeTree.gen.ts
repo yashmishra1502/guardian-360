@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthorityRouteImport } from './routes/authority'
 import { Route as CitizenRouteImport } from './routes/citizen'
+import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as ResponderRouteImport } from './routes/responder'
 
 const IndexRoute = IndexRouteImport.update({
@@ -29,6 +30,11 @@ const CitizenRoute = CitizenRouteImport.update({
   path: '/citizen',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResponderRoute = ResponderRouteImport.update({
   id: '/responder',
   path: '/responder',
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/authority': typeof AuthorityRoute
   '/citizen': typeof CitizenRoute
+  '/resources': typeof ResourcesRoute
   '/responder': typeof ResponderRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/authority': typeof AuthorityRoute
   '/citizen': typeof CitizenRoute
+  '/resources': typeof ResourcesRoute
   '/responder': typeof ResponderRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,22 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/authority': typeof AuthorityRoute
   '/citizen': typeof CitizenRoute
+  '/resources': typeof ResourcesRoute
   '/responder': typeof ResponderRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/authority' | '/citizen' | '/responder'
+  fullPaths: '/' | '/authority' | '/citizen' | '/resources' | '/responder'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/authority' | '/citizen' | '/responder'
-  id: '__root__' | '/' | '/authority' | '/citizen' | '/responder'
+  to: '/' | '/authority' | '/citizen' | '/resources' | '/responder'
+  id: '__root__' | '/' | '/authority' | '/citizen' | '/resources' | '/responder'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthorityRoute: typeof AuthorityRoute
   CitizenRoute: typeof CitizenRoute
+  ResourcesRoute: typeof ResourcesRoute
   ResponderRoute: typeof ResponderRoute
 }
 
@@ -92,6 +102,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CitizenRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/responder': {
       id: '/responder'
       path: '/responder'
@@ -106,6 +123,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthorityRoute: AuthorityRoute,
   CitizenRoute: CitizenRoute,
+  ResourcesRoute: ResourcesRoute,
   ResponderRoute: ResponderRoute,
 }
 export const routeTree = rootRouteImport
