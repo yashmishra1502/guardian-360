@@ -59,7 +59,7 @@ export interface TimelineEntry {
   label: string;
   at: string;
   by: string;
-  note?: string;
+  note?: string | undefined;
 }
 
 export interface Incident {
@@ -72,13 +72,13 @@ export interface Incident {
   lng: number;
   description: string;
   affectedPeople: number;
-  imageName?: string;
+  imageName?: string | undefined;
   reportedBy: string;
   reportedById: string;
   reportedAt: string;
-  verifiedBy?: string;
-  infoRequested?: string;
-  rejectionReason?: string;
+  verifiedBy?: string | undefined;
+  infoRequested?: string | undefined;
+  rejectionReason?: string | undefined;
   timeline: TimelineEntry[];
 }
 
@@ -164,7 +164,7 @@ export interface MapPin {
 
 export interface Notification {
   id: string;
-  incidentId?: string;
+  incidentId?: string | undefined;
   title: string;
   body: string;
   at: string;
