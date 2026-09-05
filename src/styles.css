@@ -8,6 +8,10 @@
  * SURAKSHA360 design system — emergency operations console.
  * Navy/white base, red & amber emergency accents.
  * All colors are oklch semantic tokens.
+ *
+ * FONT CHANGE: Space Grotesk (geometric, techy, good for display/numbers)
+ * + Inter (cleaner + more legible than IBM Plex Sans at small sizes)
+ * + JetBrains Mono (sharper mono for incident IDs/timestamps)
  */
 
 @theme inline {
@@ -20,8 +24,8 @@
   --radius-4xl: calc(var(--radius) + 16px);
 
   --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -72,43 +76,43 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  --shadow-card: 0 1px 2px oklch(0.22 0.06 258 / 0.06), 0 8px 24px -12px oklch(0.22 0.06 258 / 0.18);
-  --shadow-raised: 0 2px 4px oklch(0.22 0.06 258 / 0.08), 0 18px 40px -20px oklch(0.22 0.06 258 / 0.28);
+  --shadow-card: 0 1px 2px oklch(0.22 0.06 258 / 0.08), 0 10px 28px -12px oklch(0.22 0.06 258 / 0.24);
+  --shadow-raised: 0 3px 6px oklch(0.22 0.06 258 / 0.1), 0 22px 48px -18px oklch(0.22 0.06 258 / 0.34);
 }
 
 :root {
-  --radius: 0.625rem;
+  --radius: 0.75rem;
 
   --background: oklch(0.985 0.004 250);
-  --foreground: oklch(0.24 0.048 258);
+  --foreground: oklch(0.2 0.05 258);
 
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.24 0.048 258);
+  --card-foreground: oklch(0.2 0.05 258);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.24 0.048 258);
+  --popover-foreground: oklch(0.2 0.05 258);
 
-  --primary: oklch(0.31 0.07 259);
+  --primary: oklch(0.29 0.075 259);
   --primary-foreground: oklch(0.985 0.004 250);
 
   --secondary: oklch(0.945 0.012 252);
-  --secondary-foreground: oklch(0.31 0.07 259);
+  --secondary-foreground: oklch(0.29 0.075 259);
 
   --muted: oklch(0.955 0.008 252);
-  --muted-foreground: oklch(0.52 0.03 256);
+  --muted-foreground: oklch(0.5 0.03 256);
 
-  --accent: oklch(0.93 0.02 250);
-  --accent-foreground: oklch(0.28 0.06 259);
+  --accent: oklch(0.93 0.025 250);
+  --accent-foreground: oklch(0.26 0.065 259);
 
   --destructive: oklch(0.56 0.21 26);
   --destructive-foreground: oklch(0.99 0.005 90);
 
-  --border: oklch(0.9 0.012 254);
-  --input: oklch(0.9 0.012 254);
+  --border: oklch(0.89 0.013 254);
+  --input: oklch(0.89 0.013 254);
   --ring: oklch(0.55 0.09 258);
 
-  --navy: oklch(0.26 0.06 259);
+  --navy: oklch(0.24 0.065 259);
   --navy-foreground: oklch(0.98 0.005 250);
-  --navy-soft: oklch(0.36 0.07 259);
+  --navy-soft: oklch(0.34 0.075 259);
 
   --emergency: oklch(0.56 0.21 26);
   --emergency-foreground: oklch(0.99 0.005 90);
@@ -125,38 +129,38 @@
   --chart-2: oklch(0.68 0.17 45);
   --chart-3: oklch(0.58 0.12 240);
   --chart-4: oklch(0.6 0.13 155);
-  --chart-5: oklch(0.36 0.07 259);
+  --chart-5: oklch(0.34 0.075 259);
 
-  --sidebar: oklch(0.26 0.06 259);
+  --sidebar: oklch(0.24 0.065 259);
   --sidebar-foreground: oklch(0.98 0.005 250);
   --sidebar-primary: oklch(0.56 0.21 26);
   --sidebar-primary-foreground: oklch(0.99 0.005 90);
-  --sidebar-accent: oklch(0.32 0.07 259);
+  --sidebar-accent: oklch(0.3 0.075 259);
   --sidebar-accent-foreground: oklch(0.98 0.005 250);
-  --sidebar-border: oklch(0.34 0.06 259);
+  --sidebar-border: oklch(0.32 0.065 259);
   --sidebar-ring: oklch(0.56 0.21 26);
 }
 
 .dark {
-  --background: oklch(0.19 0.045 259);
+  --background: oklch(0.17 0.045 259);
   --foreground: oklch(0.97 0.005 250);
-  --card: oklch(0.24 0.05 259);
+  --card: oklch(0.22 0.05 259);
   --card-foreground: oklch(0.97 0.005 250);
-  --popover: oklch(0.24 0.05 259);
+  --popover: oklch(0.22 0.05 259);
   --popover-foreground: oklch(0.97 0.005 250);
   --primary: oklch(0.9 0.02 252);
-  --primary-foreground: oklch(0.24 0.05 259);
-  --secondary: oklch(0.3 0.05 259);
+  --primary-foreground: oklch(0.22 0.05 259);
+  --secondary: oklch(0.28 0.05 259);
   --secondary-foreground: oklch(0.97 0.005 250);
-  --muted: oklch(0.3 0.05 259);
+  --muted: oklch(0.28 0.05 259);
   --muted-foreground: oklch(0.72 0.03 254);
-  --accent: oklch(0.32 0.055 259);
+  --accent: oklch(0.3 0.055 259);
   --accent-foreground: oklch(0.97 0.005 250);
   --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 16%);
   --ring: oklch(0.6 0.09 258);
-  --navy: oklch(0.24 0.05 259);
-  --navy-soft: oklch(0.32 0.055 259);
+  --navy: oklch(0.22 0.05 259);
+  --navy-soft: oklch(0.3 0.055 259);
 }
 
 @layer base {
@@ -164,11 +168,17 @@
     border-color: var(--color-border);
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
   h1,
@@ -176,7 +186,12 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    letter-spacing: -0.015em;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+
+  ::selection {
+    background: oklch(0.56 0.21 26 / 0.25);
   }
 }
 
