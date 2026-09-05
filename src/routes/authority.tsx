@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import {
   Activity,
   BadgeCheck,
@@ -6,11 +6,12 @@ import {
   CheckCircle2,
   ClipboardList,
   HelpCircle,
+  LogOut,
   Package,
   Users,
   XCircle,
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 
 import {
@@ -22,6 +23,7 @@ import {
   TaskBadge,
   Timeline,
 } from "@/components/suraksha/ui";
+import { useSurakshaAuth } from "@/lib/suraksha/auth";
 import { formatTime, useSuraksha } from "@/lib/suraksha/store";
 
 export const Route = createFileRoute("/authority")({
@@ -44,6 +46,21 @@ export const Route = createFileRoute("/authority")({
 });
 
 function AuthorityDashboard() {
+  const { user, logout } = useSurakshaAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate({ to: "/authority-login" });
+    }
+  }, [user, navigate]);
+
+  if (!user) return null;
+
+  return <AuthorityConsole onLogout={logout} userName={user.name} />;
+}
+
+function AuthorityConsole({ onLogout, userName }: { onLogout: () => void; userName: string }) {
   const {
     incidents,
     tasks,
@@ -103,6 +120,18 @@ function AuthorityDashboard() {
       eyebrow="Authority"
       title="District control room"
       subtitle="Verify what comes in, dispatch the right team, release the right stock — every change flows straight to the citizen and responder views."
+      actions={
+        <div className="flex items-center gap-3">
+          <span className="text-sm text-muted-foreground">Signed in as {userName}</span>
+          <button
+            type="button"
+            onClick={onLogout}
+            className="inline-flex items-center gap-1.5 rounded-lg border bg-card px-3 py-2 text-sm font-semibold shadow-card"
+          >
+            <LogOut className="size-4" /> Sign out
+          </button>
+        </div>
+      }
     >
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7">
         <StatCard label="Total reports" value={kpis.total} icon={<ClipboardList className="size-4" />} />
