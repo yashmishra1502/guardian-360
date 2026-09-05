@@ -10,33 +10,154 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AlertsRouteImport } from './routes/alerts'
+import { Route as AuthorityRouteImport } from './routes/authority'
+import { Route as CitizenRouteImport } from './routes/citizen'
+import { Route as MapRouteImport } from './routes/map'
+import { Route as PreparednessRouteImport } from './routes/preparedness'
+import { Route as ResourcesRouteImport } from './routes/resources'
+import { Route as ResponderRouteImport } from './routes/responder'
+import { Route as SheltersRouteImport } from './routes/shelters'
+import { Route as SosRouteImport } from './routes/sos'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AlertsRoute = AlertsRouteImport.update({
+  id: '/alerts',
+  path: '/alerts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthorityRoute = AuthorityRouteImport.update({
+  id: '/authority',
+  path: '/authority',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CitizenRoute = CitizenRouteImport.update({
+  id: '/citizen',
+  path: '/citizen',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MapRoute = MapRouteImport.update({
+  id: '/map',
+  path: '/map',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PreparednessRoute = PreparednessRouteImport.update({
+  id: '/preparedness',
+  path: '/preparedness',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResponderRoute = ResponderRouteImport.update({
+  id: '/responder',
+  path: '/responder',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SheltersRoute = SheltersRouteImport.update({
+  id: '/shelters',
+  path: '/shelters',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SosRoute = SosRouteImport.update({
+  id: '/sos',
+  path: '/sos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/authority': typeof AuthorityRoute
+  '/citizen': typeof CitizenRoute
+  '/map': typeof MapRoute
+  '/preparedness': typeof PreparednessRoute
+  '/resources': typeof ResourcesRoute
+  '/responder': typeof ResponderRoute
+  '/shelters': typeof SheltersRoute
+  '/sos': typeof SosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/authority': typeof AuthorityRoute
+  '/citizen': typeof CitizenRoute
+  '/map': typeof MapRoute
+  '/preparedness': typeof PreparednessRoute
+  '/resources': typeof ResourcesRoute
+  '/responder': typeof ResponderRoute
+  '/shelters': typeof SheltersRoute
+  '/sos': typeof SosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/authority': typeof AuthorityRoute
+  '/citizen': typeof CitizenRoute
+  '/map': typeof MapRoute
+  '/preparedness': typeof PreparednessRoute
+  '/resources': typeof ResourcesRoute
+  '/responder': typeof ResponderRoute
+  '/shelters': typeof SheltersRoute
+  '/sos': typeof SosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/alerts'
+    | '/authority'
+    | '/citizen'
+    | '/map'
+    | '/preparedness'
+    | '/resources'
+    | '/responder'
+    | '/shelters'
+    | '/sos'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/alerts'
+    | '/authority'
+    | '/citizen'
+    | '/map'
+    | '/preparedness'
+    | '/resources'
+    | '/responder'
+    | '/shelters'
+    | '/sos'
+  id:
+    | '__root__'
+    | '/'
+    | '/alerts'
+    | '/authority'
+    | '/citizen'
+    | '/map'
+    | '/preparedness'
+    | '/resources'
+    | '/responder'
+    | '/shelters'
+    | '/sos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AlertsRoute: typeof AlertsRoute
+  AuthorityRoute: typeof AuthorityRoute
+  CitizenRoute: typeof CitizenRoute
+  MapRoute: typeof MapRoute
+  PreparednessRoute: typeof PreparednessRoute
+  ResourcesRoute: typeof ResourcesRoute
+  ResponderRoute: typeof ResponderRoute
+  SheltersRoute: typeof SheltersRoute
+  SosRoute: typeof SosRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +169,83 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/alerts': {
+      id: '/alerts'
+      path: '/alerts'
+      fullPath: '/alerts'
+      preLoaderRoute: typeof AlertsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/authority': {
+      id: '/authority'
+      path: '/authority'
+      fullPath: '/authority'
+      preLoaderRoute: typeof AuthorityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/citizen': {
+      id: '/citizen'
+      path: '/citizen'
+      fullPath: '/citizen'
+      preLoaderRoute: typeof CitizenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/map': {
+      id: '/map'
+      path: '/map'
+      fullPath: '/map'
+      preLoaderRoute: typeof MapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/preparedness': {
+      id: '/preparedness'
+      path: '/preparedness'
+      fullPath: '/preparedness'
+      preLoaderRoute: typeof PreparednessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/responder': {
+      id: '/responder'
+      path: '/responder'
+      fullPath: '/responder'
+      preLoaderRoute: typeof ResponderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shelters': {
+      id: '/shelters'
+      path: '/shelters'
+      fullPath: '/shelters'
+      preLoaderRoute: typeof SheltersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sos': {
+      id: '/sos'
+      path: '/sos'
+      fullPath: '/sos'
+      preLoaderRoute: typeof SosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AlertsRoute: AlertsRoute,
+  AuthorityRoute: AuthorityRoute,
+  CitizenRoute: CitizenRoute,
+  MapRoute: MapRoute,
+  PreparednessRoute: PreparednessRoute,
+  ResourcesRoute: ResourcesRoute,
+  ResponderRoute: ResponderRoute,
+  SheltersRoute: SheltersRoute,
+  SosRoute: SosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
