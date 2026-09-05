@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { AlertTriangle, ArrowRight, Home, Map, Radio, ShieldCheck, Siren, Users } from "lucide-react";
 
 import { Brand, DemoNote, SeverityBadge, StatusBadge } from "@/components/suraksha/ui";
+import { IsometricCityIllustration } from "@/components/suraksha/IsometricCityIllustration";
 import { useSuraksha } from "@/lib/suraksha/store";
 
 export const Route = createFileRoute("/")({
@@ -33,10 +34,9 @@ const WORKFLOW = [
 ];
 
 function Landing() {
-  const { incidents, tasks, responders, shelters, resources } = useSuraksha();
+  const { incidents, responders, shelters } = useSuraksha();
   const active = incidents.filter((i) => ["verified", "assigned", "in_progress"].includes(i.status));
   const critical = incidents.filter((i) => i.severity === "critical" && i.status !== "resolved");
-  const preview = incidents.slice(0, 4);
 
   return (
     <div className="min-h-screen bg-background">
@@ -115,41 +115,15 @@ function Landing() {
               </dl>
             </div>
 
-            <div className="rounded-2xl bg-card p-4 text-card-foreground shadow-raised sm:p-5">
+            <div className="rounded-2xl bg-card p-4 shadow-raised sm:p-5">
               <div className="flex items-center justify-between">
-                <p className="text-sm font-semibold">Emergency dashboard preview</p>
+                <p className="text-sm font-semibold text-card-foreground">3D command center overview</p>
                 <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emergency">
                   <Radio className="size-3.5 animate-pulse" /> live feed
                 </span>
               </div>
-              <div className="mt-3 space-y-2">
-                {preview.map((incident) => (
-                  <div key={incident.id} className="rounded-lg border bg-background p-3">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="font-mono text-xs text-muted-foreground">{incident.id}</span>
-                      <SeverityBadge severity={incident.severity} />
-                      <StatusBadge status={incident.status} />
-                    </div>
-                    <p className="mt-1.5 text-sm font-semibold">
-                      {incident.type} · {incident.location}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {incident.affectedPeople} affected · {incident.description.slice(0, 68)}…
-                    </p>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-3 grid grid-cols-3 gap-2 text-center">
-                {[
-                  { k: "Open tasks", v: tasks.filter((t) => t.status !== "completed").length },
-                  { k: "Resource lines", v: resources.length },
-                  { k: "Shelters", v: shelters.length },
-                ].map((s) => (
-                  <div key={s.k} className="rounded-lg bg-muted px-2 py-2">
-                    <p className="font-display text-lg font-bold text-navy">{s.v}</p>
-                    <p className="text-[10px] uppercase tracking-wide text-muted-foreground">{s.k}</p>
-                  </div>
-                ))}
+              <div className="mt-3 aspect-[680/480] w-full overflow-hidden rounded-lg border bg-background">
+                <IsometricCityIllustration />
               </div>
               <div className="mt-3">
                 <DemoNote>Prototype data — no real dispatch, call or SMS is triggered.</DemoNote>
