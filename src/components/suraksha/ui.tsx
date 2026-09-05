@@ -9,6 +9,7 @@ import {
   TASK_LABEL,
   formatTime,
 } from "@/lib/suraksha/store";
+import { useSurakshaAuth } from "@/lib/suraksha/auth";
 import type { IncidentStatus, Severity, TaskStatus, TimelineEntry } from "@/lib/suraksha/types";
 
 export const NAV_LINKS = [
@@ -22,6 +23,19 @@ export const NAV_LINKS = [
   { to: "/preparedness", label: "Prepare" },
   { to: "/sos", label: "SOS" },
 ] as const;
+
+// Role-based nav filtering: when an authority user is signed in, hide the
+// Citizen and Responder dashboard links so their navbar only shows their
+// own console (plus the shared/public pages).
+function useVisibleNavLinks() {
+  const { user } = useSurakshaAuth();
+
+  if (user?.role === "authority") {
+    return NAV_LINKS.filter((link) => link.to !== "/citizen" && link.to !== "/responder");
+  }
+
+  return NAV_LINKS;
+}
 
 export function Brand({ tone = "dark" }: { tone?: "dark" | "light" }) {
   return (
@@ -70,6 +84,7 @@ export function AppShell({
   children: ReactNode;
 }) {
   const [open, setOpen] = useState(false);
+  const visibleLinks = useVisibleNavLinks();
 
   return (
     <div className="min-h-screen bg-background">
@@ -77,7 +92,7 @@ export function AppShell({
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
           <Brand />
           <nav className="hidden items-center gap-0.5 lg:flex">
-            {NAV_LINKS.map((link) => (
+            {visibleLinks.map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
@@ -99,7 +114,7 @@ export function AppShell({
         </div>
         {open && (
           <nav className="grid grid-cols-2 gap-1 border-t border-navy-foreground/15 px-4 pb-3 pt-2 sm:grid-cols-3 lg:hidden">
-            {NAV_LINKS.map((link) => (
+            {visibleLinks.map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
