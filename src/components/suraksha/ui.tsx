@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { ShieldCheck, Menu } from "lucide-react";
 import { useState, type ReactNode } from "react";
 
@@ -11,6 +11,11 @@ import {
 } from "@/lib/suraksha/store";
 import { useSurakshaAuth } from "@/lib/suraksha/auth";
 import type { IncidentStatus, Severity, TaskStatus, TimelineEntry } from "@/lib/suraksha/types";
+
+// The three "role" dashboards should never cross-link each other in the nav —
+// each is its own separate console. Shared/public pages (Resources, Live Map,
+// Shelters, Alerts, Prepare, SOS) still show everywhere.
+const ROLE_PATHS = ["/citizen", "/authority", "/responder"] as const;
 
 export const NAV_LINKS = [
   { to: "/citizen", label: "Citizen" },
@@ -29,12 +34,23 @@ export const NAV_LINKS = [
 // own console (plus the shared/public pages).
 function useVisibleNavLinks() {
   const { user } = useSurakshaAuth();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
 
-  if (user?.role === "authority") {
-    return NAV_LINKS.filter((link) => link.to !== "/citizen" && link.to !== "/responder");
-  }
+  const currentRolePath = ROLE_PATHS.find((p) => pathname.startsWith(p));
 
-  return NAV_LINKS;
+  return NAV_LINKS.filter((link) => {
+    // Hide the other two role dashboards while you're on a role dashboard —
+    // each console stays its own separate page.
+    if (currentRolePath && ROLE_PATHS.includes(link.to as (typeof ROLE_PATHS)[number]) && link.to !== currentRolePath) {
+      return false;
+    }
+    // On top of that, a signed-in authority never sees the Citizen/Responder
+    // links even from shared pages like Resources or the Live Map.
+    if (user?.role === "authority" && (link.to === "/citizen" || link.to === "/responder")) {
+      return false;
+    }
+    return true;
+  });
 }
 
 export function Brand({ tone = "dark" }: { tone?: "dark" | "light" }) {
