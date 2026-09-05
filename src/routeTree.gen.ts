@@ -17,6 +17,7 @@ import { Route as MapRouteImport } from './routes/map'
 import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as ResponderRouteImport } from './routes/responder'
 import { Route as SheltersRouteImport } from './routes/shelters'
+import { Route as SosRouteImport } from './routes/sos'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -58,6 +59,11 @@ const SheltersRoute = SheltersRouteImport.update({
   path: '/shelters',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SosRoute = SosRouteImport.update({
+  id: '/sos',
+  path: '/sos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -68,6 +74,7 @@ export interface FileRoutesByFullPath {
   '/resources': typeof ResourcesRoute
   '/responder': typeof ResponderRoute
   '/shelters': typeof SheltersRoute
+  '/sos': typeof SosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByTo {
   '/resources': typeof ResourcesRoute
   '/responder': typeof ResponderRoute
   '/shelters': typeof SheltersRoute
+  '/sos': typeof SosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -89,6 +97,7 @@ export interface FileRoutesById {
   '/resources': typeof ResourcesRoute
   '/responder': typeof ResponderRoute
   '/shelters': typeof SheltersRoute
+  '/sos': typeof SosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +110,7 @@ export interface FileRouteTypes {
     | '/resources'
     | '/responder'
     | '/shelters'
+    | '/sos'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
     | '/resources'
     | '/responder'
     | '/shelters'
+    | '/sos'
   id:
     | '__root__'
     | '/'
@@ -121,6 +132,7 @@ export interface FileRouteTypes {
     | '/resources'
     | '/responder'
     | '/shelters'
+    | '/sos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -132,6 +144,7 @@ export interface RootRouteChildren {
   ResourcesRoute: typeof ResourcesRoute
   ResponderRoute: typeof ResponderRoute
   SheltersRoute: typeof SheltersRoute
+  SosRoute: typeof SosRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -192,6 +205,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SheltersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sos': {
+      id: '/sos'
+      path: '/sos'
+      fullPath: '/sos'
+      preLoaderRoute: typeof SosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -204,6 +224,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResourcesRoute: ResourcesRoute,
   ResponderRoute: ResponderRoute,
   SheltersRoute: SheltersRoute,
+  SosRoute: SosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
