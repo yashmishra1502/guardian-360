@@ -30,16 +30,22 @@ function AuthorityLogin() {
     e.preventDefault();
     setError(null);
     setLoading(true);
-    const result =
-      mode === "login"
-        ? await login(email, password)
-        : await register({ name, email, department, designation, govtId, password });
-    setLoading(false);
-    if (!result.ok) {
-      setError(result.error ?? "Something went wrong.");
-      return;
+    try {
+      const result =
+        mode === "login"
+          ? await login(email, password)
+          : await register({ name, email, department, designation, govtId, password });
+      if (!result.ok) {
+        setError(result.error ?? "Something went wrong.");
+        return;
+      }
+      navigate({ to: "/authority" });
+    } catch (err) {
+      console.error(err);
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
-    navigate({ to: "/authority" });
   };
 
   return (
