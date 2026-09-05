@@ -15,6 +15,7 @@ import { Route as CitizenRouteImport } from './routes/citizen'
 import { Route as MapRouteImport } from './routes/map'
 import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as ResponderRouteImport } from './routes/responder'
+import { Route as SheltersRouteImport } from './routes/shelters'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -46,6 +47,11 @@ const ResponderRoute = ResponderRouteImport.update({
   path: '/responder',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SheltersRoute = SheltersRouteImport.update({
+  id: '/shelters',
+  path: '/shelters',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -54,6 +60,7 @@ export interface FileRoutesByFullPath {
   '/map': typeof MapRoute
   '/resources': typeof ResourcesRoute
   '/responder': typeof ResponderRoute
+  '/shelters': typeof SheltersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +69,7 @@ export interface FileRoutesByTo {
   '/map': typeof MapRoute
   '/resources': typeof ResourcesRoute
   '/responder': typeof ResponderRoute
+  '/shelters': typeof SheltersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,13 +79,27 @@ export interface FileRoutesById {
   '/map': typeof MapRoute
   '/resources': typeof ResourcesRoute
   '/responder': typeof ResponderRoute
+  '/shelters': typeof SheltersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/authority' | '/citizen' | '/map' | '/resources' | '/responder'
+    | '/'
+    | '/authority'
+    | '/citizen'
+    | '/map'
+    | '/resources'
+    | '/responder'
+    | '/shelters'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/authority' | '/citizen' | '/map' | '/resources' | '/responder'
+  to:
+    | '/'
+    | '/authority'
+    | '/citizen'
+    | '/map'
+    | '/resources'
+    | '/responder'
+    | '/shelters'
   id:
     | '__root__'
     | '/'
@@ -86,6 +108,7 @@ export interface FileRouteTypes {
     | '/map'
     | '/resources'
     | '/responder'
+    | '/shelters'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -95,6 +118,7 @@ export interface RootRouteChildren {
   MapRoute: typeof MapRoute
   ResourcesRoute: typeof ResourcesRoute
   ResponderRoute: typeof ResponderRoute
+  SheltersRoute: typeof SheltersRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -141,6 +165,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResponderRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/shelters': {
+      id: '/shelters'
+      path: '/shelters'
+      fullPath: '/shelters'
+      preLoaderRoute: typeof SheltersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -151,6 +182,7 @@ const rootRouteChildren: RootRouteChildren = {
   MapRoute: MapRoute,
   ResourcesRoute: ResourcesRoute,
   ResponderRoute: ResponderRoute,
+  SheltersRoute: SheltersRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
