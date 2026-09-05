@@ -1,19 +1,5 @@
 import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
 
-import {
-  AUTHORITY,
-  CITIZEN,
-  seedAlerts,
-  seedIncidents,
-  seedMapPins,
-  seedNotifications,
-  seedResourceAssignments,
-  seedResources,
-  seedResponders,
-  seedShelters,
-  seedTasks,
-  seedUsers,
-} from "./seed";
 import type {
   Alert,
   DisasterType,
@@ -28,6 +14,8 @@ import type {
 
 /**
  * Single in-memory store shared by every dashboard.
+ * No mock/seed data — everything starts empty and is populated only by
+ * real actions taken in the app (citizen reports, authority decisions, etc).
  * Swapping this for Firebase/Supabase later means replacing the mutations
  * below with writes to: incidents, tasks, resources, resourceAssignments,
  * alerts, shelters, users.
@@ -77,6 +65,43 @@ export const SEVERITY_LABEL: Record<Severity, string> = {
   low: "Low",
 };
 
+// Generic actor placeholders used to label who performed an action.
+// Replace with the real logged-in citizen/authority identity once auth is wired end-to-end.
+const CITIZEN = { id: "USR-001", name: "Citizen" };
+const AUTHORITY = { name: "Control room" };
+
+type Responder = {
+  id: string;
+  name: string;
+  team: string;
+  available: boolean;
+};
+
+type Shelter = {
+  id: string;
+  name: string;
+  location: string;
+  capacity: number;
+  occupied: number;
+};
+
+type MapPin = {
+  id: string;
+  lat: number;
+  lng: number;
+  label: string;
+};
+
+type Notification = {
+  id: string;
+  incidentId?: string;
+  title: string;
+  body: string;
+  at: string;
+  audience: "citizen" | "authority" | "responder";
+  read: boolean;
+};
+
 export interface ReportInput {
   type: DisasterType;
   severity: Severity;
@@ -102,16 +127,16 @@ export interface AlertInput {
 }
 
 interface StoreValue {
-  users: typeof seedUsers;
+  users: unknown[];
   incidents: Incident[];
   tasks: Task[];
-  responders: typeof seedResponders;
+  responders: Responder[];
   resources: Resource[];
   resourceAssignments: ResourceAssignment[];
   alerts: Alert[];
-  shelters: typeof seedShelters;
-  mapPins: typeof seedMapPins;
-  notifications: typeof seedNotifications;
+  shelters: Shelter[];
+  mapPins: MapPin[];
+  notifications: Notification[];
   lastReportedId: string | null;
   reportIncident: (input: ReportInput) => Incident;
   verifyIncident: (id: string) => void;
@@ -127,19 +152,19 @@ interface StoreValue {
 const StoreContext = createContext<StoreValue | null>(null);
 
 const now = () => new Date().toISOString();
-let counter = 1043;
-let taskCounter = 506;
+let counter = 1001;
+let taskCounter = 501;
 
 export function SurakshaProvider({ children }: { children: ReactNode }) {
-  const [incidents, setIncidents] = useState<Incident[]>(seedIncidents);
-  const [tasks, setTasks] = useState<Task[]>(seedTasks);
-  const [responders, setResponders] = useState(seedResponders);
-  const [resources, setResources] = useState<Resource[]>(seedResources);
-  const [resourceAssignments, setResourceAssignments] =
-    useState<ResourceAssignment[]>(seedResourceAssignments);
-  const [alerts, setAlerts] = useState<Alert[]>(seedAlerts);
-  const [shelters] = useState(seedShelters);
-  const [notifications, setNotifications] = useState(seedNotifications);
+  const [incidents, setIncidents] = useState<Incident[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [responders, setResponders] = useState<Responder[]>([]);
+  const [resources, setResources] = useState<Resource[]>([]);
+  const [resourceAssignments, setResourceAssignments] = useState<ResourceAssignment[]>([]);
+  const [alerts, setAlerts] = useState<Alert[]>([]);
+  const [shelters] = useState<Shelter[]>([]);
+  const [mapPins] = useState<MapPin[]>([]);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
   const [lastReportedId, setLastReportedId] = useState<string | null>(null);
 
   const pushIncidentStatus = useCallback(
@@ -332,7 +357,13 @@ export function SurakshaProvider({ children }: { children: ReactNode }) {
 
   const createAlert = useCallback((input: AlertInput) => {
     setAlerts((prev) => [
-      { id: `ALT-${Math.random().toString(36).slice(2, 6).toUpperCase()}`, ...input, issuedBy: AUTHORITY.name, issuedAt: now(), demo: true },
+      {
+        id: `ALT-${Math.random().toString(36).slice(2, 6).toUpperCase()}`,
+        ...input,
+        issuedBy: AUTHORITY.name,
+        issuedAt: now(),
+        demo: true,
+      },
       ...prev,
     ]);
   }, []);
@@ -343,7 +374,7 @@ export function SurakshaProvider({ children }: { children: ReactNode }) {
 
   const value = useMemo<StoreValue>(
     () => ({
-      users: seedUsers,
+      users: [],
       incidents,
       tasks,
       responders,
@@ -351,7 +382,7 @@ export function SurakshaProvider({ children }: { children: ReactNode }) {
       resourceAssignments,
       alerts,
       shelters,
-      mapPins: seedMapPins,
+      mapPins,
       notifications,
       lastReportedId,
       reportIncident,
@@ -372,6 +403,7 @@ export function SurakshaProvider({ children }: { children: ReactNode }) {
       createAlert,
       incidents,
       lastReportedId,
+      mapPins,
       markNotificationsRead,
       notifications,
       rejectIncident,
