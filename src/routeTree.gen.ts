@@ -14,6 +14,7 @@ import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as AuthorityRouteImport } from './routes/authority'
 import { Route as CitizenRouteImport } from './routes/citizen'
 import { Route as MapRouteImport } from './routes/map'
+import { Route as PreparednessRouteImport } from './routes/preparedness'
 import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as ResponderRouteImport } from './routes/responder'
 import { Route as SheltersRouteImport } from './routes/shelters'
@@ -44,6 +45,11 @@ const MapRoute = MapRouteImport.update({
   path: '/map',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PreparednessRoute = PreparednessRouteImport.update({
+  id: '/preparedness',
+  path: '/preparedness',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResourcesRoute = ResourcesRouteImport.update({
   id: '/resources',
   path: '/resources',
@@ -71,6 +77,7 @@ export interface FileRoutesByFullPath {
   '/authority': typeof AuthorityRoute
   '/citizen': typeof CitizenRoute
   '/map': typeof MapRoute
+  '/preparedness': typeof PreparednessRoute
   '/resources': typeof ResourcesRoute
   '/responder': typeof ResponderRoute
   '/shelters': typeof SheltersRoute
@@ -82,6 +89,7 @@ export interface FileRoutesByTo {
   '/authority': typeof AuthorityRoute
   '/citizen': typeof CitizenRoute
   '/map': typeof MapRoute
+  '/preparedness': typeof PreparednessRoute
   '/resources': typeof ResourcesRoute
   '/responder': typeof ResponderRoute
   '/shelters': typeof SheltersRoute
@@ -94,6 +102,7 @@ export interface FileRoutesById {
   '/authority': typeof AuthorityRoute
   '/citizen': typeof CitizenRoute
   '/map': typeof MapRoute
+  '/preparedness': typeof PreparednessRoute
   '/resources': typeof ResourcesRoute
   '/responder': typeof ResponderRoute
   '/shelters': typeof SheltersRoute
@@ -107,6 +116,7 @@ export interface FileRouteTypes {
     | '/authority'
     | '/citizen'
     | '/map'
+    | '/preparedness'
     | '/resources'
     | '/responder'
     | '/shelters'
@@ -118,6 +128,7 @@ export interface FileRouteTypes {
     | '/authority'
     | '/citizen'
     | '/map'
+    | '/preparedness'
     | '/resources'
     | '/responder'
     | '/shelters'
@@ -129,6 +140,7 @@ export interface FileRouteTypes {
     | '/authority'
     | '/citizen'
     | '/map'
+    | '/preparedness'
     | '/resources'
     | '/responder'
     | '/shelters'
@@ -141,6 +153,7 @@ export interface RootRouteChildren {
   AuthorityRoute: typeof AuthorityRoute
   CitizenRoute: typeof CitizenRoute
   MapRoute: typeof MapRoute
+  PreparednessRoute: typeof PreparednessRoute
   ResourcesRoute: typeof ResourcesRoute
   ResponderRoute: typeof ResponderRoute
   SheltersRoute: typeof SheltersRoute
@@ -184,6 +197,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MapRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/preparedness': {
+      id: '/preparedness'
+      path: '/preparedness'
+      fullPath: '/preparedness'
+      preLoaderRoute: typeof PreparednessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/resources': {
       id: '/resources'
       path: '/resources'
@@ -221,6 +241,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthorityRoute: AuthorityRoute,
   CitizenRoute: CitizenRoute,
   MapRoute: MapRoute,
+  PreparednessRoute: PreparednessRoute,
   ResourcesRoute: ResourcesRoute,
   ResponderRoute: ResponderRoute,
   SheltersRoute: SheltersRoute,
